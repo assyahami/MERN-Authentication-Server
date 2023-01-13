@@ -9,7 +9,6 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        dropDups:true
     },
     phoneNumber: {
         type: Number
