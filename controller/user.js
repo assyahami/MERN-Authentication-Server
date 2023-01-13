@@ -107,31 +107,11 @@ const getUser = async (req, res, next) => {
 
     })
 }
-const uniqueEmail = async (req, res, next) => {
-    const { email } = req.params;
-    console.log(email);
-    try {
-        if (email.length < 1) return res.status(401).send("Invalid");
 
-        if (!email.test(username)) return next(ErrorHandler("Invalid", 401));
-
-        const user = await UserModal.findOne({ email: email.toLowerCase() });
-
-        if (user) return new next(ErrorHandler("Email already Taken", 401));
-
-        return res.status(200).json({
-            success:true
-        });
-    } catch (e) {
-        console.log(e);
-        return res.status(500).send(`Server Error`);
-    }
-};
 module.exports = {
     createUser,
     loginUser,
     forgotPassword,
     resetUserPassword,
-    getUser,
-    uniqueEmail
+    getUser
 }
