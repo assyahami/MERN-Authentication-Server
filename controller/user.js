@@ -52,7 +52,7 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
     let resetUrl = `${req.protocol}//${req.get('host')}/api/v1/password/reset/`
 
     const message = `<h4>Your password reset url is as follows</h4> </br>
-    <a href="${`http://localhost:5173/accounts/password/change/${resetToken}`}">${resetUrl}</a> \n\n<span> If you have not requested this email, then ignore it.</span>`;
+    <a href="${`${req.protocol}//${req.get('host')}/password/change/${resetToken}`}">${resetUrl}</a> \n\n<span> If you have not requested this email, then ignore it.</span>`;
     try {
         sendEmail({
             email: user.email,
