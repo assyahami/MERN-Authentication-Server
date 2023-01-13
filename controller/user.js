@@ -115,9 +115,9 @@ const uniqueEmail = async (req, res, next) => {
 
         if (!email.test(username)) return next(ErrorHandler("Invalid", 401));
 
-        // const user = await UserModal.findOne({ email: email.toLowerCase() });
+        const user = await UserModal.findOne({ email: email.toLowerCase() });
 
-        // if (user) return new next(ErrorHandler("Email already Taken", 401));
+        if (user) return new next(ErrorHandler("Email already Taken", 401));
 
         return res.status(200).send("Username Avaliable");
     } catch (e) {
