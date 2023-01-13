@@ -119,7 +119,9 @@ const uniqueEmail = async (req, res, next) => {
 
         if (user) return new next(ErrorHandler("Email already Taken", 401));
 
-        return res.status(200).send("Username Avaliable");
+        return res.status(200).json({
+            success:true
+        });
     } catch (e) {
         console.log(e);
         return res.status(500).send(`Server Error`);
