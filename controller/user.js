@@ -49,10 +49,10 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
     let resetToken = user.getResetToken()
     await user.save({ validateBeforeSave: false })
 
-    let resetUrl = `https://mern-authentication-ashiq.netlify.app//api/v1/password/reset/`
+    let resetUrl = `https://mern-authentication-client.vercel.app/accounts/password/change`
 
     const message = `<h4>Your password reset url is as follows</h4> </br>
-    <a href="${`https://mern-authentication-ashiq.netlify.app//password/change/${resetToken}`}">${resetUrl}</a> \n\n<span> If you have not requested this email, then ignore it.</span>`;
+    <a href="${`${resetUrl}/${resetToken}`}">${resetUrl}</a> \n\n<span> If you have not requested this email, then ignore it.</span>`;
     try {
         sendEmail({
             email: user.email,
