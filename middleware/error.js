@@ -25,11 +25,7 @@ module.exports = (err, req, res, next) => {
             err.statusCode = 400
         }
 
-        if (err.code == 11000) {
-            let message = `Duplicate ${Object.keys(err.keyValue).toString().toLocaleUpperCase()} error or Email already exits`;
-            error = new ErrorHandler(message)
-            err.statusCode = 400
-        }
+        
 
         if (err.name == 'JSONWebTokenError') {
             let message = `JSON Web Token is invalid. Try again`;

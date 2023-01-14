@@ -5,17 +5,24 @@ const sendToken = require("../utils/jwt")
 const crypto = require("crypto");
 const catchAsyncError = require("../middleware/catchAsyncError");
 
-const createUser = catchAsyncError(async (req, res, next) => {
+const createUser = async (req, res, next) => {
     const { username, email, phoneNumber, password } = req.body
+    try {
+        const userCreated = await UserModal.create({
+            username,
+            email,
+            phoneNumber,
+            password,
+        })
+        sendToken(userCreated, 201, res)
+    } catch (error) {
 
-    const userCreated = await UserModal.create({
-        username,
-        email,
-        phoneNumber,
-        password,
-    })
-    sendToken(userCreated, 201, res)
-})
+        if (error.code == 11000) {
+            let message = `Duplicate ${error.keyValue.email} ${Object.keys(error.keyValue)} already exits`;
+            new next(new ErrorHandler(message, 400))
+        }
+    }
+}
 
 
 const loginUser = async (req, res, next) => {
